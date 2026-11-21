@@ -1,6 +1,14 @@
 import { supabase } from './supabase'
 
-const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+const forwardedApiUrl = typeof window !== 'undefined'
+  && window.location.hostname.endsWith('.app.github.dev')
+  ? window.location.origin.replace(/-5173\.app\.github\.dev$/, '-4000.app.github.dev')
+  : 'http://localhost:4000'
+const configuredApiUrl = import.meta.env.VITE_API_URL
+const apiBase = typeof window !== 'undefined'
+  && window.location.hostname.endsWith('.app.github.dev')
+  ? forwardedApiUrl
+  : (configuredApiUrl || forwardedApiUrl)
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const { data } = await supabase.auth.getSession()

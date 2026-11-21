@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import type { Session, User } from '@supabase/supabase-js'
-import { supabase } from '../lib/supabase'
+import { assertSupabaseConfigured, supabase } from '../lib/supabase'
 
 interface AuthContextValue {
   session: Session | null
@@ -29,11 +29,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   async function signIn(email: string, password: string) {
+    assertSupabaseConfigured()
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) throw error
   }
 
   async function signUp(email: string, password: string, fullName: string) {
+    assertSupabaseConfigured()
     const { error } = await supabase.auth.signUp({
       email,
       password,

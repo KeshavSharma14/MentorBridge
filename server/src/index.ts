@@ -10,7 +10,19 @@ import { sessionRouter } from './routes/sessions.js'
 import { registerChatHandler } from './socket/chatHandler.js'
 
 const app = express()
-app.use(cors({ origin: env.clientUrl }))
+app.use(cors({
+  origin(origin, callback) {
+    if (
+      !origin
+      || origin === env.clientUrl
+      || origin.endsWith('.app.github.dev')
+    ) {
+      callback(null, true)
+      return
+    }
+    callback(new Error('Origin is not allowed'))
+  },
+}))
 app.use(express.json())
 
 app.get('/', (_req, res) => {
