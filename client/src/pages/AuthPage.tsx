@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext'
 export function AuthPage() {
   const { user, signIn, signUp } = useAuth()
   const navigate = useNavigate()
+  const appUrl = import.meta.env.VITE_APP_URL || window.location.origin
   const [mode, setMode] = useState<'signin' | 'signup'>('signin')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -31,6 +32,9 @@ export function AuthPage() {
 
   return (
     <div className="auth-card">
+      <a className="auth-runtime-url" href={appUrl} target="_blank" rel="noreferrer">
+        App URL: {appUrl}
+      </a>
       <div className="auth-tabs">
         <button className={mode === 'signin' ? 'active' : ''} onClick={() => setMode('signin')} type="button">Sign in</button>
         <button className={mode === 'signup' ? 'active' : ''} onClick={() => setMode('signup')} type="button">Create account</button>

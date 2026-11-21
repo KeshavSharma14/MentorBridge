@@ -28,6 +28,23 @@ button { cursor: pointer; }
 .topbar a { color: #334155; text-decoration: none; font-weight: 700; }
 .brand { color: #4f46e5 !important; font-size: 20px; }
 .link-button { border: 0; background: none; color: #64748b; }
+.runtime-url {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #64748b !important;
+  font-size: 12px;
+  font-weight: 600 !important;
+}
+.auth-runtime-url {
+  display: block;
+  margin-bottom: 8px;
+  color: #64748b;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
 
 main { width: min(1180px, calc(100% - 40px)); margin: 32px auto 64px; }
 .page-heading { display: flex; justify-content: space-between; align-items: end; margin-bottom: 24px; }
